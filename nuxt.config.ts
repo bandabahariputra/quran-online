@@ -16,7 +16,12 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap',
+        },
+      ],
+      script: [
+        {
+          src: 'https://unpkg.com/@phosphor-icons/web',
         },
       ],
     },

@@ -10,8 +10,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        qo: {
+          0: '#f4f8f9',
+          1: '#494f56',
+          2: '#24a4b5',
+          3: '#a2a9b3',
+        },
+      },
       fontFamily: {
-        sans: '"Open Sans", sans-serif',
+        sans: '"Karla", sans-serif',
       },
     },
   },
