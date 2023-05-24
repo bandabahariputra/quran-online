@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const route = useRoute();
 const showMenu = ref(false);
 
 onMounted(() => {
@@ -7,6 +8,10 @@ onMounted(() => {
       showMenu.value = false;
     }
   });
+});
+
+watch(route, () => {
+  showMenu.value = false;
 });
 
 watch(showMenu, () => {
@@ -23,7 +28,7 @@ watch(showMenu, () => {
 <template>
   <div class="min-h-screen w-full bg-qo-0 text-qo-1">
     <div class="mx-auto h-full w-full md:max-w-2xl">
-      <div class="sticky top-0 bg-qo-0 px-6 py-2">
+      <div class="sticky top-0 z-50 bg-qo-0 px-6 py-2">
         <div class="relative">
           <div
             v-if="showMenu"
@@ -43,7 +48,9 @@ watch(showMenu, () => {
                   >
                 </li>
                 <li>
-                  <NuxtLink to="/" class="inline-block h-full w-full px-4 py-2"
+                  <NuxtLink
+                    to="/quran"
+                    class="inline-block h-full w-full px-4 py-2"
                     >Quran</NuxtLink
                   >
                 </li>
