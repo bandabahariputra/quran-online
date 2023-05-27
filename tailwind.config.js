@@ -21,6 +21,7 @@ module.exports = {
       },
       fontFamily: {
         sans: '"Karla", sans-serif',
+        quran: 'Al Qalam Quran Majeed',
       },
     },
   },

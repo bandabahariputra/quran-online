@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Al Qalam Quran Majeed';
+  src: url('../fonts/Al-Qalam-Quran-Majeed.ttf') format('truetype');
+}
