@@ -1,6 +1,29 @@
 <script setup lang="ts">
-const filter = ref(['SURAH', 'JUZ', 'PAGE']);
+interface Translation {
+  en: string;
+  id: string;
+}
+
+interface Name {
+  short: string;
+  translation: Translation;
+  transliteration: Translation;
+}
+
+interface SurahItem {
+  number: number;
+  name: Name;
+}
+
+const filter = ref(['SURAH']);
 const selectedFilter = ref('SURAH');
+
+const { data: surahs } = await useFetch<{
+  code: number;
+  status: string;
+  message: string;
+  data: SurahItem[];
+}>('https://api.quran.gading.dev/surah');
 </script>
 
 <template>
@@ -54,16 +77,25 @@ const selectedFilter = ref('SURAH');
       </div>
     </div>
     <div class="divide-y divide-qo-4">
-      <div v-for="item in 10" :key="item" class="flex items-center gap-4 py-3">
-        <div class="relative grid h-10 w-10 place-items-center">
-          <p class="text-xs">{{ item }}</p>
-          <i
-            class="ph ph-brackets-curly absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-qo-1/90"
-          />
+      <div
+        v-for="item in surahs?.data"
+        :key="item.number"
+        class="flex items-center justify-between gap-4 py-3"
+      >
+        <div class="flex items-center gap-4">
+          <div class="relative grid h-10 w-10 place-items-center">
+            <p class="text-xs font-medium">{{ item.number }}</p>
+            <i
+              class="ph ph-brackets-curly absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-qo-1/90"
+            />
+          </div>
+          <div>
+            <p class="font-semibold">{{ item.name.transliteration.id }}</p>
+            <p class="text-sm text-qo-2">{{ item.name.translation.id }}</p>
+          </div>
         </div>
         <div>
-          <p class="font-semibold">Al-Fatihah</p>
-          <p class="text-sm text-qo-2">The Opening</p>
+          <p class="font-quran text-xl">{{ item.name.short }}</p>
         </div>
       </div>
     </div>
