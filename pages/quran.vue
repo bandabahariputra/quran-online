@@ -15,6 +15,7 @@ interface SurahItem {
   name: Name;
 }
 
+const keyword = ref('');
 const filter = ref(['SURAH']);
 const selectedFilter = ref('SURAH');
 
@@ -24,6 +25,34 @@ const { data: surahs } = await useFetch<{
   message: string;
   data: SurahItem[];
 }>('https://api.quran.gading.dev/surah');
+
+const quickAccessSurahs = computed(() => {
+  if (surahs.value?.data) {
+    const newSurahs = [...surahs.value?.data];
+    const quickAccess = newSurahs
+      .sort(() => 0.5 - Math.random())
+      .map((item) => ({
+        number: item.number,
+        name: item.name,
+      }))
+      .splice(0, 10);
+
+    return [...quickAccess];
+  }
+});
+
+const filteredSurahs = computed(() => {
+  if (surahs.value?.data && keyword.value) {
+    const newSurahs = [...surahs.value?.data];
+    const filtered = newSurahs.filter((item) =>
+      item.name.transliteration.id.toLowerCase().includes(keyword.value)
+    );
+
+    return [...filtered];
+  } else {
+    return surahs.value?.data;
+  }
+});
 </script>
 
 <template>
@@ -36,6 +65,7 @@ const { data: surahs } = await useFetch<{
   <div class="px-6">
     <div class="relative">
       <input
+        v-model="keyword"
         type="text"
         placeholder="Search surah"
         class="w-full rounded-full border border-qo-4 bg-qo-4 px-5 py-3 text-base outline-none transition-all duration-300 focus:border-qo-2"
@@ -46,22 +76,22 @@ const { data: surahs } = await useFetch<{
     </div>
   </div>
   <!-- quick access -->
-  <div class="py-4">
+  <div v-if="quickAccessSurahs" class="py-4">
     <div class="mb-2 px-6">
       <p class="text-sm text-qo-2">QUICK ACCESS</p>
     </div>
     <div class="hide-scroll flex items-center gap-2 overflow-x-auto px-6">
       <span
-        v-for="item in 20"
-        :key="item"
+        v-for="item in quickAccessSurahs"
+        :key="item.number"
         class="inline-block cursor-pointer whitespace-nowrap rounded-full border-[1.75px] border-qo-2 px-2.5 py-0.5 text-sm font-semibold transition-all duration-300 hover:bg-qo-2 hover:text-white"
       >
-        Surah 1
+        {{ item.name.transliteration.id }}
       </span>
     </div>
   </div>
   <!-- list surah -->
-  <div class="px-6 py-4">
+  <div v-if="filteredSurahs" class="px-6 py-4">
     <div class="mb-2 flex items-end">
       <div
         v-for="item in filter"
@@ -76,9 +106,14 @@ const { data: surahs } = await useFetch<{
         <p class="text-qo-2">{{ item }}</p>
       </div>
     </div>
+    <div v-if="keyword">
+      <p>
+        Keyword: <span class="font-semibold">&ldquo;{{ keyword }}&rdquo;</span>
+      </p>
+    </div>
     <div class="divide-y divide-qo-4">
       <div
-        v-for="item in surahs?.data"
+        v-for="item in filteredSurahs"
         :key="item.number"
         class="flex items-center justify-between gap-4 py-3"
       >
