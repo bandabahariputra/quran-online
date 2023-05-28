@@ -81,13 +81,14 @@ const filteredSurahs = computed(() => {
       <p class="text-sm text-qo-2">QUICK ACCESS</p>
     </div>
     <div class="hide-scroll flex items-center gap-2 overflow-x-auto px-6">
-      <span
+      <NuxtLink
         v-for="item in quickAccessSurahs"
         :key="item.number"
+        :to="`/surah/${item.number}`"
         class="inline-block cursor-pointer whitespace-nowrap rounded-full border-[1.75px] border-qo-2 px-2.5 py-0.5 text-sm font-semibold transition-all duration-300 hover:bg-qo-2 hover:text-white"
       >
         {{ item.name.transliteration.id }}
-      </span>
+      </NuxtLink>
     </div>
   </div>
   <!-- list surah -->
@@ -112,9 +113,10 @@ const filteredSurahs = computed(() => {
       </p>
     </div>
     <div class="divide-y divide-qo-4">
-      <div
+      <NuxtLink
         v-for="item in filteredSurahs"
         :key="item.number"
+        :to="`/surah/${item.number}`"
         class="flex items-center justify-between gap-4 py-3"
       >
         <div class="flex items-center gap-4">
@@ -132,7 +134,7 @@ const filteredSurahs = computed(() => {
         <div>
           <p class="font-quran text-xl">{{ item.name.short }}</p>
         </div>
-      </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
