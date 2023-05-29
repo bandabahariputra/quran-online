@@ -65,7 +65,7 @@ if (!surah.value?.data) {
     </div>
     <div
       dir="rtl"
-      :class="[route.params.id === '1' ? 'text-center' : 'text-justify']"
+      :class="[$route.params.id === '1' ? 'text-center' : 'text-justify']"
     >
       <div
         v-for="item in surah?.data.verses"
