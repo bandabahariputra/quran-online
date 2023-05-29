@@ -24,7 +24,7 @@ watch(loading, () => {
 <template>
   <div v-if="loading">
     <div
-      class="fixed z-[9999] grid h-screen w-full select-none place-items-center bg-black/50"
+      class="fixed left-0 top-0 z-[9999] grid h-screen w-full select-none place-items-center bg-black/50"
     >
       <img
         src="~/assets/images/quran.png"
