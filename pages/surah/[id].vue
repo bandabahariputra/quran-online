@@ -43,6 +43,7 @@ const { data: surah } = await useFetch<{
 }>('https://api.quran.gading.dev/surah/' + route.params.id);
 
 if (!surah.value?.data) {
+  console.log('ts');
   router.push('/quran');
 }
 </script>
@@ -57,7 +58,7 @@ if (!surah.value?.data) {
         {{ surah?.data.name.translation.id }}
       </p>
     </div>
-    <div class="mb-4">
+    <div v-if="surah?.data.preBismillah" class="mb-4">
       <p class="text-center font-quran text-3xl">
         {{ surah?.data.preBismillah.text.arab }}
       </p>
