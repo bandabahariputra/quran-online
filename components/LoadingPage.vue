@@ -29,7 +29,7 @@ watch(loading, () => {
       <img
         src="~/assets/images/quran.png"
         alt="quran"
-        class="w-1/3 animate-bounce"
+        class="w-1/3 animate-bounce md:w-56"
       />
     </div>
   </div>
