@@ -49,7 +49,7 @@ if (!surah.value?.data) {
 </script>
 
 <template>
-  <div v-if="surah?.data" class="px-6 py-4">
+  <div v-if="surah?.data" class="p-4">
     <div class="mb-8">
       <p class="text-center text-lg font-bold">
         {{ surah?.data.name.transliteration.id }}

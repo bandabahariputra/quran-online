@@ -30,7 +30,7 @@ watch(showMenu, () => {
   <div class="min-h-screen w-full bg-qo-0 text-qo-1">
     <div class="mx-auto h-full w-full md:max-w-2xl">
       <LoadingPage />
-      <div class="sticky top-0 z-50 bg-qo-0 px-6 py-2">
+      <div class="sticky top-0 z-50 bg-qo-0 px-4 py-2">
         <div class="relative">
           <div
             v-if="showMenu"

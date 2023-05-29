@@ -30,7 +30,7 @@ const prayerSchedules = ref([
 
 <template>
   <!-- greeting -->
-  <div class="px-6 py-4">
+  <div class="p-4">
     <p class="text-sm text-qo-2">Assalamualaikum</p>
     <p class="text-xl font-bold">Ahmad</p>
   </div>
@@ -44,7 +44,7 @@ const prayerSchedules = ref([
     </div>
   </div>
   <!-- prayer schedule -->
-  <div class="px-6 py-4">
+  <div class="p-4">
     <div class="flex items-center">
       <div
         v-for="item in prayerSchedules"
@@ -60,7 +60,7 @@ const prayerSchedules = ref([
     </div>
   </div>
   <!-- last read -->
-  <div class="px-6 py-4">
+  <div class="p-4">
     <div class="mb-2">
       <p class="text-lg font-bold">Last read</p>
     </div>

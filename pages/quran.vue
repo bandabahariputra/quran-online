@@ -57,7 +57,7 @@ const filteredSurahs = computed(() => {
 
 <template>
   <!-- greeting -->
-  <div class="px-6 py-4">
+  <div class="p-4">
     <p class="text-sm text-qo-2">Al-Quran</p>
     <p class="text-xl font-bold">Reading Surah</p>
   </div>
@@ -92,7 +92,7 @@ const filteredSurahs = computed(() => {
     </div>
   </div>
   <!-- list surah -->
-  <div v-if="filteredSurahs" class="px-6 py-4">
+  <div v-if="filteredSurahs" class="p-4">
     <div class="mb-2 flex items-end">
       <div
         v-for="item in filter"
