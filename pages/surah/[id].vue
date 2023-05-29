@@ -63,7 +63,10 @@ if (!surah.value?.data) {
         {{ surah?.data.preBismillah.text.arab }}
       </p>
     </div>
-    <div dir="rtl" class="text-justify">
+    <div
+      dir="rtl"
+      :class="[route.params.id === '1' ? 'text-center' : 'text-justify']"
+    >
       <div
         v-for="item in surah?.data.verses"
         :key="item.number.inSurah"
