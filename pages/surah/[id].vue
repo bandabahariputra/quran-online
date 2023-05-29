@@ -43,7 +43,6 @@ const { data: surah } = await useFetch<{
 }>('https://api.quran.gading.dev/surah/' + route.params.id);
 
 if (!surah.value?.data) {
-  console.log('ts');
   router.push('/quran');
 }
 </script>
