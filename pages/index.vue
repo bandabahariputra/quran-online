@@ -14,6 +14,9 @@ const year = date.getFullYear();
 const month = date.getMonth();
 const day = date.getDate();
 
+const username = ref('');
+const showModalChangeName = ref(false);
+
 const { data: prayerSchedules } = await useFetch<{
   status: string;
   data: PrayerSchedule;
@@ -71,13 +74,41 @@ const newPrayerSchedules = computed(() => {
     ];
   }
 });
+
+const handleSubmitName = (name: string) => {
+  if (name) {
+    localStorage.setItem('name', name);
+  } else {
+    localStorage.setItem('name', 'Octa');
+  }
+
+  username.value = localStorage.getItem('name') || '';
+
+  showModalChangeName.value = false;
+};
+
+onMounted(() => {
+  const name = localStorage.getItem('name');
+
+  if (!name) {
+    showModalChangeName.value = true;
+  } else {
+    username.value = name;
+  }
+});
 </script>
 
 <template>
   <!-- greeting -->
-  <div class="p-4">
+  <div class="relative p-4">
     <p class="text-sm text-qo-2">Assalamualaikum</p>
-    <p class="text-xl font-bold">Ahmad</p>
+    <p class="text-xl font-bold">{{ username }}</p>
+    <div
+      class="absolute right-4 top-4 cursor-pointer px-2"
+      @click="showModalChangeName = true"
+    >
+      <i class="ph-bold ph-pencil-simple-line text-lg" />
+    </div>
   </div>
   <!-- location -->
   <div class="px-4">
@@ -105,7 +136,7 @@ const newPrayerSchedules = computed(() => {
     </div>
   </div>
   <!-- last read -->
-  <div class="p-4">
+  <!-- <div class="p-4">
     <div class="mb-2">
       <p class="text-lg font-bold">Last read</p>
     </div>
@@ -122,5 +153,7 @@ const newPrayerSchedules = computed(() => {
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <!-- modal change name -->
+  <ModalChangeName :show="showModalChangeName" @submit="handleSubmitName" />
 </template>
