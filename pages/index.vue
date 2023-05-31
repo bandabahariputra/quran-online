@@ -15,6 +15,7 @@ const month = date.getMonth();
 const day = date.getDate();
 
 const username = ref('');
+const lastReadSurah = ref();
 const showModalChangeName = ref(false);
 
 const { data: prayerSchedules } = await useFetch<{
@@ -22,22 +23,22 @@ const { data: prayerSchedules } = await useFetch<{
   data: PrayerSchedule;
 }>(`https://api.myquran.com/v1/sholat/jadwal/1301/${year}/${month + 1}/${day}`);
 
-const fullMonth = computed(() => {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
+const fullMonth = computed(() => {
   return months[month];
 });
 
@@ -89,11 +90,26 @@ const handleSubmitName = (name: string) => {
 
 onMounted(() => {
   const name = localStorage.getItem('name');
+  const lastRead = localStorage.getItem('lastRead');
 
   if (!name) {
     showModalChangeName.value = true;
   } else {
     username.value = name;
+  }
+
+  if (lastRead) {
+    const lastReadJson = JSON.parse(lastRead);
+
+    const date = new Date(lastReadJson.date);
+
+    lastReadSurah.value = {
+      ...lastReadJson,
+      date: `${months[date.getMonth()]} ${date.getDate()}`,
+      time: `${
+        date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+      }:${date.getMinutes()}`,
+    };
   }
 });
 </script>
@@ -136,24 +152,33 @@ onMounted(() => {
     </div>
   </div>
   <!-- last read -->
-  <!-- <div class="p-4">
+  <div v-if="lastReadSurah" class="p-4">
     <div class="mb-2">
       <p class="text-lg font-bold">Last read</p>
     </div>
     <div>
-      <div class="rounded-xl bg-white p-4">
+      <NuxtLink
+        :to="`/surah/${lastReadSurah.number}`"
+        class="block rounded-xl bg-white p-4"
+      >
         <div
           class="inline-block rounded-full bg-qo-3/20 px-3 py-1 text-xs text-qo-3"
         >
-          <p class="font-semibold">22 MEI</p>
+          <p class="font-semibold">
+            {{ lastReadSurah.date }} | {{ lastReadSurah.time }}
+          </p>
         </div>
         <div class="mt-2">
-          <p class="mb-1 font-semibold">Quran Juz 1</p>
-          <p class="text-sm text-qo-2">Al-Fatihah 1 - Al-Baqarah 141</p>
+          <p class="mb-1 font-semibold">
+            {{ lastReadSurah.name.transliteration.id }}
+          </p>
+          <p class="text-sm text-qo-2">
+            {{ lastReadSurah.name.translation.id }}
+          </p>
         </div>
-      </div>
+      </NuxtLink>
     </div>
-  </div> -->
+  </div>
   <!-- modal change name -->
   <ModalChangeName :show="showModalChangeName" @submit="handleSubmitName" />
 </template>

@@ -45,6 +45,16 @@ const { data: surah } = await useFetch<{
 if (!surah.value?.data) {
   router.push('/quran');
 }
+
+onMounted(() => {
+  const data = {
+    date: new Date(),
+    number: surah.value?.data.number,
+    name: surah.value?.data.name,
+  };
+
+  localStorage.setItem('lastRead', JSON.stringify(data));
+});
 </script>
 
 <template>
