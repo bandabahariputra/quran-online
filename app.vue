@@ -31,7 +31,7 @@ watch(showMenu, () => {
     <div class="mx-auto h-full w-full md:max-w-2xl">
       <LoadingPage />
       <div class="sticky top-0 z-50 bg-qo-0 px-4 py-2">
-        <div class="relative">
+        <div class="relative flex items-center justify-between">
           <div
             v-if="showMenu"
             class="fixed left-0 top-0 h-screen w-full bg-black/5"
@@ -59,6 +59,15 @@ watch(showMenu, () => {
               </ul>
             </div>
           </Transition>
+          <a
+            href="https://github.com/bandabahariputra/quran-online"
+            class="github-icon grid h-6 w-6 place-items-center overflow-hidden rounded-full border border-qo-1 transition-all duration-300 hover:bg-qo-1"
+            target="_blank"
+          >
+            <i
+              class="ph-bold ph-github-logo text-lg transition-all duration-300"
+            />
+          </a>
         </div>
       </div>
       <NuxtPage />
@@ -76,5 +85,9 @@ watch(showMenu, () => {
   transform-origin: left top;
   transform: scale(0);
   opacity: 0;
+}
+
+.github-icon:hover > i {
+  color: white;
 }
 </style>
